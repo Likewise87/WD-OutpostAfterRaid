@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<OutputPath>..\Assemblies\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Optimize>true</Optimize>
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4535" />
+		<PackageReference Include="Lib.Harmony" Version="2.3.2" />
+		<Reference Include="Outposts">
+		  <HintPath>..\..\..\..\..\workshop\content\294100\2023507013\1.6\Assemblies\Outposts.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="TSA_WorldDomination">
+		  <HintPath>..\..\TSA World Domination Experimental\Assemblies\TSA_WorldDomination.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>
