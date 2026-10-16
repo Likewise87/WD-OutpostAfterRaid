@@ -8,36 +8,37 @@
     <li>1.7</li>
   </supportedVersions>
   <packageId>TSA.WD.OutpostAfterRaid</packageId>
-  <description>This is an addon for the "World Domination" mod. Allows you to directly create an outpost after having defeated a settlement. The outpost will get prepopulated with random pawns having the right skills. The number of pawns dependents on the Tier level of the conquered settlement.</description>
-	<modDependencies>
-	  <li>
-		<packageId>brrainz.harmony</packageId>
-		<displayName>Harmony</displayName>
-		<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
-	  </li>
-	  <li>
-		<packageId>oskarpotocki.vanillafactionsexpanded.core</packageId>
-		<displayName>Vanilla Expanded</displayName>
-		<steamWorkshopUrl>steam://url/CommunityFilePage/2023507013</steamWorkshopUrl>
-	  </li>
-	  <li>
-		<packageId>vanillaexpanded.outposts</packageId>
-		<displayName>Vanilla Outposts Expanded</displayName>
-		<steamWorkshopUrl>steam://url/CommunityFilePage/2688941031</steamWorkshopUrl>
-	  </li>
-	  <li>
-		<packageId>tsa.worlddomination</packageId>
-		<displayName>World Domination</displayName>
-		<steamWorkshopUrl>steam://url/CommunityFilePage/3646291383</steamWorkshopUrl>
-	  </li> 
-	</modDependencies>
-	<incompatibleWith>
-		<li>jaeger972.factionterritories</li>
-	</incompatibleWith>
-	<loadAfter>
-	  <li>brrainz.harmony</li>
-	  <li>oskarpotocki.vanillafactionsexpanded.core</li>
-	  <li>vanillaexpanded.outposts</li>
-	  <li>tsa.worlddomination</li>
-	</loadAfter>
+  <description>Addon for the original World Domination mod (not World Domination 2.0). After defeating a settlement, offers to establish an outpost prepopulated with skilled pawns. Pawn count scales with the conquered settlement's tier.</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>oskarpotocki.vanillafactionsexpanded.core</packageId>
+      <displayName>Vanilla Expanded</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2023507013</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>vanillaexpanded.outposts</packageId>
+      <displayName>Vanilla Outposts Expanded</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2688941031</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>TSA.WorldDomination</packageId>
+      <displayName>World Domination</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3646291383</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <incompatibleWith>
+    <li>jaeger972.factionterritories</li>
+    <li>TSA.WorldDominationExperimental</li>
+  </incompatibleWith>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>oskarpotocki.vanillafactionsexpanded.core</li>
+    <li>vanillaexpanded.outposts</li>
+    <li>TSA.WorldDomination</li>
+  </loadAfter>
 </ModMetaData>

@@ -3,4 +3,10 @@ obj/
 .vs/
 *.user
 *.suo
+Assemblies/*.pdb
+Assemblies/0Harmony.dll
+Assemblies/TSA_WorldDomination.dll
+Assemblies/TSA_WorldDomination.pdb
 tools/_workshop_stage/
+Source/obj/
+Source/bin/

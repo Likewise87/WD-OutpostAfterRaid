@@ -5,7 +5,8 @@ using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
-using TSA_WorldDomination;
+using WorldDomination;
+using TSA_WorldDomination.Outposts;
 
 namespace OutpostMVP
 {
