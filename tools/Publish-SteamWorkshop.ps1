@@ -2,6 +2,7 @@
 <#
 .SYNOPSIS
   Stage + optionally upload WD OutpostAfterRaid (addon for original World Domination).
+  Ships dual loadFolders: 1.6 (net48, frozen) + 1.7 (net10).
 #>
 [CmdletBinding(DefaultParameterSetName = 'Stage')]
 param(
@@ -23,14 +24,13 @@ $ErrorActionPreference = 'Stop'
 
 $RimWorldAppId = '294100'
 $DllName = 'WD_OutpostAfterRaid.dll'
-$AllowFolders = @('About', 'Assemblies')
+$AllowFolders = @('About', 'loadFolders.xml', '1.6', '1.7')
 
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $StageRoot = Join-Path $RepoRoot 'tools\_workshop_stage'
 $ContentDir = Join-Path $StageRoot 'content'
 $VdfPath = Join-Path $StageRoot 'upload.vdf'
 $PublishedIdPath = Join-Path $RepoRoot 'About\PublishedFileId.txt'
-$DllSource = Join-Path $RepoRoot "Assemblies\$DllName"
 
 function Write-Info([string] $Message) { Write-Host $Message }
 
@@ -64,16 +64,21 @@ function Copy-TreeOptional([string] $RelativeFolder) {
     if ($code -ge 8) { throw "robocopy failed for $RelativeFolder (exit $code)" }
 }
 
+function Copy-FileOptional([string] $RelativeFile) {
+    $src = Join-Path $RepoRoot $RelativeFile
+    if (-not (Test-Path -LiteralPath $src)) { return }
+    $dst = Join-Path $ContentDir $RelativeFile
+    $dstDir = Split-Path -Parent $dst
+    New-Item -ItemType Directory -Path $dstDir -Force | Out-Null
+    Copy-Item -LiteralPath $src -Destination $dst -Force
+}
+
 function Stage-Content {
     Clear-Stage
     Copy-TreeOptional 'About'
-
-    if (-not (Test-Path -LiteralPath $DllSource)) {
-        throw "Missing assembly: $DllSource"
-    }
-    $asmDir = Join-Path $ContentDir 'Assemblies'
-    New-Item -ItemType Directory -Path $asmDir -Force | Out-Null
-    Copy-Item -LiteralPath $DllSource -Destination (Join-Path $asmDir $DllName) -Force
+    Copy-FileOptional 'loadFolders.xml'
+    Copy-TreeOptional '1.6'
+    Copy-TreeOptional '1.7'
 }
 
 function Assert-Stage {
@@ -82,13 +87,15 @@ function Assert-Stage {
     if ($extra.Count -gt 0) {
         throw "Stage content has unexpected top-level entries: $($extra -join ', ')"
     }
-    foreach ($need in @('About', 'Assemblies')) {
+    foreach ($need in @('About', 'loadFolders.xml', '1.6', '1.7')) {
         if ($need -notin $actual) { throw "Stage content missing: $need" }
     }
 
-    $asmFiles = @(Get-ChildItem -LiteralPath (Join-Path $ContentDir 'Assemblies') -File -Force)
-    if ($asmFiles.Count -ne 1 -or $asmFiles[0].Name -ne $DllName) {
-        throw "Assemblies must contain exactly '$DllName'"
+    foreach ($ver in @('1.6', '1.7')) {
+        $dll = Join-Path $ContentDir "$ver\Assemblies\$DllName"
+        if (-not (Test-Path -LiteralPath $dll)) {
+            throw "Missing staged assembly: $ver/Assemblies/$DllName"
+        }
     }
     if (-not (Test-Path -LiteralPath (Join-Path $ContentDir 'About\Preview.png'))) {
         throw 'Staged About/Preview.png is missing.'
